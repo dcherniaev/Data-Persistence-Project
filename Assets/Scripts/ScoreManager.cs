@@ -26,15 +26,15 @@ public class ScoreManager : MonoBehaviour
     [System.Serializable]
     class SaveData
     {
-        public string playerName;
-        public int playerScore;
+        public string name;
+        public int score;
     }
 
     public void SaveScore()
     {
         SaveData data = new SaveData();
-        data.playerName = playerName;
-        data.playerScore = playerScore;
+        data.name = playerName;
+        data.score = playerScore;
 
         string json = JsonUtility.ToJson(data);
 
@@ -49,8 +49,8 @@ public class ScoreManager : MonoBehaviour
             string json = File.ReadAllText(path);
             SaveData data = JsonUtility.FromJson<SaveData>(json);
 
-            playerName = data.playerName;
-            playerScore = data.playerScore;
+            playerName = data.name;
+            playerScore = data.score;
         }
     }
 
