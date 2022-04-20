@@ -7,21 +7,18 @@ using UnityEngine.UI;
 using UnityEditor;
 #endif
 
+[DefaultExecutionOrder(1000)]
+
 public class MenuUIHandler : MonoBehaviour
 {
-    public InputField mainInputField;
 
+    public Text highestScoreText;
     // Start is called before the first frame update
-    void Start()
-    {
-        //Adds a listener that invokes the "LockInput" method when the player finishes editing the main input field.
-        //Passes the main input field into the method when "LockInput" is invoked
-        mainInputField.onEndEdit.AddListener(NewNameEntered);
-    }
 
-    public void NewNameEntered(string text)
+    void Awake()
     {
-        ScoreManager.Instance.playerName = text;
+        ScoreManager.Instance.LoadScore();
+        highestScoreText.text = "Highest Score: " + ScoreManager.Instance.playerName + " " + ScoreManager.Instance.playerScore;
     }
 
     public void StartNew()
@@ -37,5 +34,16 @@ public class MenuUIHandler : MonoBehaviour
 #else
         Application.Quit(); // original code to quit Unity player
 #endif
+    }
+
+    public void ResetScore()
+    {
+        ScoreManager.Instance.playerName = " ";
+        ScoreManager.Instance.playerScore = 0;
+        ScoreManager.Instance.SaveScore();
+        SceneManager.LoadScene(0);
+
+
+
     }
 }

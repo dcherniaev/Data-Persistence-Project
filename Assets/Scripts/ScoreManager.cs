@@ -35,9 +35,7 @@ public class ScoreManager : MonoBehaviour
         SaveData data = new SaveData();
         data.name = playerName;
         data.score = playerScore;
-
         string json = JsonUtility.ToJson(data);
-
         File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
     }
 
@@ -48,7 +46,6 @@ public class ScoreManager : MonoBehaviour
         {
             string json = File.ReadAllText(path);
             SaveData data = JsonUtility.FromJson<SaveData>(json);
-
             playerName = data.name;
             playerScore = data.score;
         }
